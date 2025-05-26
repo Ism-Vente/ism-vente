@@ -1,0 +1,78 @@
+<!-- chargeur-complet.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chargeur rapide | IsmVente</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .galerie {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .galerie img {
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .galerie img:hover {
+      border-color: #000;
+    }
+    .grande-image {
+      max-width: 300px;
+      display: block;
+      margin-bottom: 15px;
+    }
+    .produit-detail {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link">🛒 <span id="panier-count">0</span></a>
+    </nav>
+  </header>
+
+  <main class="produit-detail">
+    <h1>Chargeur complet</h1>
+    <img id="main-image" class="grande-image" src="https://www.cdiscount.com/pdt2/3/9/1/1/700x700/toy1689288146391/rw/chargeur-rapide-20w-pour-apple-iphone-cable-usb.jpg" alt="Chargeur-complet">
+
+    
+
+    <p><strong>Prix :</strong> 15 €</p>
+    <p>
+      
+Chargeur iPhone rapide 20W  Apple + cable USB-C vers Lightning 1m/usb-c
+    </p>
+    <button onclick="ajouterAuPanier('Chargeur complet', 15)">Ajouter au panier</button>
+  </main>
+
+  <script>
+    function changerImage(src) {
+      document.getElementById("main-image").src = src;
+    }
+
+    function ajouterAuPanier(nom, prix) {
+      let panier = JSON.parse(localStorage.getItem("panier")) || [];
+      panier.push({ nom, prix });
+      localStorage.setItem("panier", JSON.stringify(panier));
+      alert(nom + " ajouté au panier !");
+      document.getElementById("panier-count").textContent = panier.length;
+    }
+
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    document.getElementById("panier-count").textContent = panier.length;
+  </script>
+</body>
+</html>

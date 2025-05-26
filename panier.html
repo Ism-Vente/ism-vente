@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panier | IsmVente</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link">🛒 <span id="panier-count">0</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Votre Panier</h1>
+    <ul id="panier-list"></ul>
+    <p id="total-prix"></p>
+    <button id="stripe-button">Payer avec Stripe</button>
+  </main>
+
+  <script>
+    const stripe = Stripe("pk_live_51RT16NHgleekWpruj9w0h9PxND89ybbyDNiSsczMLjCvTFf1g3i5Rf23MBX5sRUNausnbNqqWZLQDZzKHQrEoJxY00A75SUlHc");
+    let panier = JSON.parse(localStorage.getItem("panier")) || [];
+    const panierList = document.getElementById("panier-list");
+    const totalPrix = document.getElementById("total-prix");
+    const panierCount = document.getElementById("panier-count");
+
+    function afficherPanier() {
+      panierList.innerHTML = "";
+      let total = 0;
+
+      panier.forEach((produit, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `${produit.nom} - ${produit.prix}€`;
+        panierList.appendChild(li);
+        total += parseFloat(produit.prix);
+      });
+
+      totalPrix.textContent = `Total : ${total.toFixed(2)} €`;
+      panierCount.textContent = panier.length;
+    }
+
+    afficherPanier();
+
+    document.getElementById("stripe-button").addEventListener("click", async () => {
+      const res = await fetch("http://localhost:4242/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ panier })
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        localStorage.removeItem("panier");
+        window.location.href = data.url;
+      }
+    });
+  </script>
+</body>
+</html>

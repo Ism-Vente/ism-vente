@@ -1,0 +1,53 @@
+<!-- a-propos.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>À propos | IsmVente</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    main {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.6;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link">🛒 <span id="panier-count">0</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>À propos d'IsmVente</h1>
+    <p>
+      Bienvenue chez IsmVente, votre boutique en ligne dédiée aux meilleurs accessoires à petits prix !
+      Nous nous engageons à vous offrir des produits de qualité, un service client réactif et une expérience d'achat simple et sécurisée.
+    </p>
+    <p>
+      Notre équipe sélectionne avec soin chaque article pour répondre à vos besoins et vous satisfaire pleinement.
+      Que vous cherchiez des accessoires pour votre smartphone, des gadgets innovants ou des idées cadeaux, vous êtes au bon endroit.
+    </p>
+    <p>
+      Merci de votre confiance et bonne visite sur notre site !
+    </p>
+  </main>
+
+  <script>
+    // Mise à jour du compteur panier
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    document.getElementById("panier-count").textContent = panier.length;
+  </script>
+</body>
+</html>

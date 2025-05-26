@@ -1,0 +1,110 @@
+<!-- contact.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | IsmVente</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    button {
+      padding: 0.7rem;
+      background-color: #2d89ef;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #1b5fbd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link">🛒 <span id="panier-count">0</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Contacte-nous</h1>
+    <form id="form-contact">
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" required />
+
+      <label for="email">Email :</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="message">Message :</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Envoyer</button>
+    </form>
+    <p id="confirmation" style="color: green; margin-top: 1rem;"></p>
+  </main>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1375597472512082043/1swC0HkyQfpnNPK-TFHGeRxHP9UXEF2NUrXCUETFi8WKu0oATwV83v0Sgu0U4tXf24Eo"; // Remplace par ton URL
+  
+    document.getElementById("form-contact").addEventListener("submit", function (e) {
+      e.preventDefault();
+  
+      const nom = document.getElementById("nom").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+  
+      const payload = {
+        content: `📩 **Nouveau message de contact !**\n\n👤 **Nom :** ${nom}\n📧 **Email :** ${email}\n💬 **Message :**\n${message}`
+      };
+  
+      fetch(webhookURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("confirmation").textContent = "Merci pour votre message ! On vous répond vite 👌";
+          document.getElementById("form-contact").reset();
+        } else {
+          document.getElementById("confirmation").textContent = "Une erreur est survenue, réessayez plus tard.";
+        }
+      })
+      .catch(error => {
+        console.error("Erreur lors de l'envoi vers Discord :", error);
+        document.getElementById("confirmation").textContent = "Une erreur est survenue, réessayez plus tard.";
+      });
+    });
+  
+    // Mise à jour du compteur panier
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    document.getElementById("panier-count").textContent = panier.length;
+  </script>
+  
+</body>
+</html>

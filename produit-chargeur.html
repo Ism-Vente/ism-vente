@@ -1,0 +1,81 @@
+<!-- produit-chargeur.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chargeur rapide | IsmVente</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .galerie {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .galerie img {
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .galerie img:hover {
+      border-color: #000;
+    }
+    .grande-image {
+      max-width: 300px;
+      display: block;
+      margin-bottom: 15px;
+    }
+    .produit-detail {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link">🛒 <span id="panier-count">0</span></a>
+    </nav>
+  </header>
+
+  <main class="produit-detail">
+    <h1>Adaptateur Apple USB-C 20W</h1>
+    <img id="main-image" class="grande-image" src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MU7V2_GEO_EMEA?wid=500&hei=500&fmt=jpeg&qlt=95" alt="Chargeur rapide">
+
+    <div class="galerie">
+      <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MU7V2_GEO_EMEA?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=S0hTZWQwM0w3b3ZxbUlZQnBMeW1zanVtbGhrV2FGbS8xbUlib01wR2lFclgweVh6NitrUktaTVlLTndleXliMXNXck1YdkptZEtsN1ZialhCQzhGcm5aQzM2eERGTkhTcHRqdmRKQm1ram8" onclick="changerImage(this.src)" alt="Vue 1"/>
+      <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MU7V2_AV1_GEO_EMEA?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=SVVQMGs3cmszc2l4Q2E5YnR6aUFBTUNNdzkzRkFxbENDeXNwRTlhV2tUcnp4THdTd2lmRXlDeGtOTytoQnRoVDNXQlhUWnI2SVF6K1phMXlVcWcwbnFIcWdvQ3QzWmtYVWNKRzVrczBVVVk" onclick="changerImage(this.src)" alt="Vue 2"/>
+      <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MU7V2_AV2_GEO_EMEA?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=SHRoSFZTbEZXNWJKTnNDK1lBbWFLOENNdzkzRkFxbENDeXNwRTlhV2tUcnp4THdTd2lmRXlDeGtOTytoQnRoVGdVSFU1UHF4NmtaRDArRmFNQ2RwQ0pVOThZTC9kQnNuclIwaVAzSjYzckk" onclick="changerImage(this.src)" alt="Vue 3"/>
+    </div>
+
+    <p><strong>Prix :</strong> 9,99 €</p>
+    <p>
+      Ce chargeur rapide 20W USB-C est idéal pour une recharge efficace de votre iPhone, iPad ou tout autre appareil compatible USB-C. Léger, compact et sécurisé, il vous accompagne partout.
+    </p>
+    <button onclick="ajouterAuPanier('Adaptateur Apple USB-C 20W', 9.99)">Ajouter au panier</button>
+  </main>
+
+  <script>
+    function changerImage(src) {
+      document.getElementById("main-image").src = src;
+    }
+
+    function ajouterAuPanier(nom, prix) {
+      let panier = JSON.parse(localStorage.getItem("panier")) || [];
+      panier.push({ nom, prix });
+      localStorage.setItem("panier", JSON.stringify(panier));
+      alert(nom + " ajouté au panier !");
+      document.getElementById("panier-count").textContent = panier.length;
+    }
+
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    document.getElementById("panier-count").textContent = panier.length;
+  </script>
+</body>
+</html>

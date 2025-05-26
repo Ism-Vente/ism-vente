@@ -1,0 +1,80 @@
+<!-- usb-c lightning.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chargeur rapide | IsmVente</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .galerie {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .galerie img {
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .galerie img:hover {
+      border-color: #000;
+    }
+    .grande-image {
+      max-width: 300px;
+      display: block;
+      margin-bottom: 15px;
+    }
+    .produit-detail {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link">🛒 <span id="panier-count">0</span></a>
+    </nav>
+  </header>
+
+  <main class="produit-detail">
+    <h1>Câble USB-C vers Lightning</h1>
+    <img id="main-image" class="grande-image" src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MM0A3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=M1QzMm9ybmlkQ3d6ZGgvOEtLT2s2d2tuVHYzMERCZURia3c5SzJFOTlPakdhd3hTd0Z4eVU5dlRoTFZsS1dHQnF1RHVsWWtITU8zLy9oRVFmWitIakE" alt="Câble USB-C vers Lightning">
+
+    
+
+    <p><strong>Prix :</strong> 6 €</p>
+    <p>
+      
+Connectez votre appareil avec connecteur Lightning à un appareil équipé d’un port USB‑C ou Thunderbolt 3 (USB‑C) pour la synchronisation et la recharge, ou à un iPad équipé d’un port USB‑C pour la recharge.
+
+Vous pouvez aussi utiliser ce câble avec votre adaptateur secteur Apple USB‑C 18 W, 20 W, 29 W, 30 W, 61 W, 87 W ou 96 W pour recharger votre appareil iOS et même profiter des capacités de charge rapide de certains modèles d’iPhone et d’iPad.
+    </p>
+    <button onclick="ajouterAuPanier('Câble USB-C vers Lightning', 6)">Ajouter au panier</button>
+  </main>
+
+  <script>
+    function changerImage(src) {
+      document.getElementById("main-image").src = src;
+    }
+
+    function ajouterAuPanier(nom, prix) {
+      let panier = JSON.parse(localStorage.getItem("panier")) || [];
+      panier.push({ nom, prix });
+      localStorage.setItem("panier", JSON.stringify(panier));
+      alert(nom + " ajouté au panier !");
+      document.getElementById("panier-count").textContent = panier.length;
+    }
+
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    document.getElementById("panier-count").textContent = panier.length;
+  </script>
+</body>
+</html>

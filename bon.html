@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bon d'envoi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .info, .produits {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .produits ul {
+      padding-left: 20px;
+    }
+    .btn-print {
+      margin-top: 20px;
+      display: block;
+      text-align: center;
+    }
+    .btn-print button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📦 Bon d'envoi</h1>
+  <div class="info" id="infos-client"></div>
+  <div class="produits" id="produits-commande"></div>
+
+  <div class="btn-print">
+    <button onclick="window.print()">🖨️ Imprimer</button>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("dernierBon"));
+
+    if (data) {
+      const { infos, produits, total, paiement, date, commandeId } = data;
+
+      document.getElementById("infos-client").innerHTML = `
+        <strong>🧾 Commande n°:</strong> ${commandeId} <br/>
+        <strong>📅 Date :</strong> ${date} <br/><br/>
+        <strong>👤 Nom :</strong> ${infos.nom} <br/>
+        <strong>🏠 Adresse :</strong> ${infos.adresse}, ${infos.codePostal} ${infos.ville} <br/>
+        <strong>📞 Téléphone :</strong> ${infos.telephone} <br/>
+        <strong>💳 Paiement :</strong> ${paiement} <br/>
+        <strong>📝 Instructions :</strong> ${infos.instructions || "Aucune"}
+      `;
+
+      document.getElementById("produits-commande").innerHTML = `
+        <strong>🛍️ Produits commandés :</strong><br/>
+        <ul>${produits.map(p => `<li>${p.nom} - ${p.prix}€</li>`).join('')}</ul>
+        <strong>Total :</strong> ${total} €
+      `;
+    } else {
+      document.body.innerHTML = "<p>Aucune commande récente.</p>";
+    }
+  </script>
+</body>
+</html>

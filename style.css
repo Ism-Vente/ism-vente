@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produits | IsmVente</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f9f9f9;
+      color : #333;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: #4CAF50;
+      color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #d4f7d4;
+    }
+
+    nav a.panier-link {
+      position: relative;
+      font-size: 1.3rem;
+    }
+
+    #panier-count {
+      background: #e53935;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.75rem;
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      color: white;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #2e7d32;
+    }
+
+    .produits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .produit {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .produit:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .produit img {
+      max-width: 150px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+    }
+
+    .produit h3 {
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 1.2rem;
+    }
+
+    /* Voici le style ajouté pour les liens dans les titres produits */
+    .produit h3 a {
+      color: inherit;          /* couleur identique au texte parent */
+      text-decoration: none;   /* pas de soulignement */
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .produit h3 a:hover {
+      color: #4CAF50;          /* vert au survol */
+      text-decoration: underline;
+    }
+
+    .produit p {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      main {
+        margin: 20px 10px;
+      }
+      .produits {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html" aria-current="page">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link" aria-label="Voir le panier">🛒 <span id="panier-count">0</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Nos Accessoires</h1>
+
+    <div class="produits">
+      <div class="produit">
+        <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MU7V2_GEO_EMEA?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=S0hTZWQwM0w3b3ZxbUlZQnBMeW1zdUhqWkRRcXNqMGJqR1Q1M05wQWx4WFgweVh6NitrUktaTVlLTndleXliMXNXck1YdkptZEtsN1ZialhCQzhGcm5aQzM2eERGTkhTcHRqdmRKQm1ram8" alt="Adaptateur Apple USB-C 20W" />
+        <h3><a href="produit-chargeur.html">Adaptateur Apple USB-C 20W</a></h3>
+        <p>9,99 €</p>
+        <button onclick="ajouterAuPanier('Adaptateur Apple USB-C 20W', 9.99)">Ajouter au panier</button>
+      </div>
+
+      <div class="produit">
+        <img src="https://via.placeholder.com/150" alt="Coque iPhone" />
+        <h3>Coque iPhone</h3>
+        <p>6,50 €</p>
+        <button onclick="ajouterAuPanier('Coque iPhone', 6.50)">Ajouter au panier</button>
+      </div>
+
+      <div class="produit">
+        <img src="https://via.placeholder.com/150" alt="Écran de protection" />
+        <h3>Écran de protection</h3>
+        <p>4,99 €</p>
+        <button onclick="ajouterAuPanier('Écran de protection', 4.99)">Ajouter au panier</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function ajouterAuPanier(nom, prix) {
+      let panier = JSON.parse(localStorage.getItem("panier")) || [];
+      panier.push({ nom, prix });
+      localStorage.setItem("panier", JSON.stringify(panier));
+      alert(nom + " ajouté au panier !");
+      document.getElementById("panier-count").textContent = panier.length;
+    }
+
+    // Initialiser le compteur au chargement
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+    document.getElementById("panier-count").textContent = panier.length;
+  </script>
+</body>
+</html>
