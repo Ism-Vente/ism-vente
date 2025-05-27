@@ -40,7 +40,18 @@
       panier.forEach((produit, index) => {
         const li = document.createElement("li");
         li.innerHTML = `${produit.nom} - ${produit.prix}€`;
+        
+        const btn = document.createElement("button");
+        btn.textContent = "Supprimer";
+        btn.style.marginLeft = "10px";
+        btn.onclick = function() {
+          panier.splice(index, 1);
+          localStorage.setItem("panier", JSON.stringify(panier));
+          afficherPanier();
+        };
+        li.appendChild(btn);
         panierList.appendChild(li);
+    
         total += parseFloat(produit.prix);
       });
 
@@ -52,10 +63,15 @@
 
     document.getElementById("stripe-button").addEventListener("click", async () => {
       const res = await fetch("http://localhost:4242/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ panier })
-      });
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ panier })
+});
+      if (!res.ok) {
+        const error = await res.json();
+        alert(`Erreur lors de la création de la session de paiement : ${error.message}`);
+        return;
+      }
 
       const data = await res.json();
       if (data.url) {

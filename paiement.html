@@ -1,0 +1,49 @@
+<!-- paiement.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paiement | IsmVente</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">🛍️ IsmVente</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="accessoires.html">Produits</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html" class="panier-link">🛒</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Paiement sécurisé 💳</h1>
+    <div id="paypal-button-container"></div>
+  </main>
+
+  <!-- Script SDK PayPal -->
+  <script src="https://www.paypal.com/sdk/js?client-id=TON_CLIENT_ID&currency=EUR"></script>
+
+  <script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '25.00' // 👉 À rendre dynamique si tu veux calculer le total du panier
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Merci ' + details.payer.name.given_name + ' ! Paiement confirmé ✅');
+          window.location.href = 'confirmation.html'; // ou succès.html
+        });
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>
